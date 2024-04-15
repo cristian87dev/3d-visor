@@ -1,0 +1,185 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(0, 0, 0, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --sidebar-width: 300px;
+  --header-height: 48px;
+  --toolbar-height: 32px;
+
+  --glass-color-green-ocean: rgba(138, 253, 255, 0.3);
+  --glass-border-green-ocean: rgba(138, 253, 255, 0.1);
+  --glass-color-gray-rock: rgba(173, 216, 230, 0.3);
+  --glass-border-gray-rock: rgba(173, 216, 230, 0.1);
+  --glass-color-red-coral: rgba(240, 128, 128, 0.7);
+  --glass-border-red-coral: rgba(240, 128, 128, 0.1);
+  --glass-color-green-forest: rgba(144, 238, 144, 0.3);
+  --glass-border-green-forest: rgba(144, 238, 144, 0.1);
+}
+
+html,
+body,
+#root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: ivory;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.layout {
+  display: grid;
+  grid-template:
+  "header header" var(--header-height)
+  "toolbar toolbar" var(--toolbar-height)
+  "sidebar span" 1fr;
+  grid-template-columns: 0 1fr;
+  height: 100%;
+  
+  @media (min-width: 1024px) {
+    grid-template-columns: var(--sidebar-width) 1fr;
+  }
+
+  & .header {
+    grid-area: header;
+    display: flex;
+    align-items: center;
+    padding: 0.25rem 1rem;
+    font-family: 'roboto', sans-serif;
+    font-size: 2rem;
+    /* border-bottom-width: 0; */
+
+    & .title {
+      font-size: 1.25rem;
+      font-weight: 300;
+      text-transform: uppercase;
+    }
+  }
+
+  .toolbar {
+    grid-area: toolbar;
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    border-top-width: 0;
+
+    & .toolbar-item {
+      font-family: 'roboto', sans-serif;
+      font-size: 1rem;
+      margin-right: 0.5rem;
+      cursor: pointer;
+      border-radius: 0.25rem;
+      transition: 0.25s all ease;
+    }
+
+    @media (min-width: 1024px) {
+      & .toolbar-item:first-child {
+        display: none;
+      }
+    }
+
+    & button {
+      appearance: none;
+      border: none;
+      padding: 0.125rem 0.5rem;
+      color: rgba(0, 0, 0, 0.5);
+
+      &:hover, &:active {
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+    }
+  }
+
+  & .sidebar {
+    grid-area: sidebar;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* border-right: 1px solid gray; */
+    /* background-color: rgba(173, 216, 230, 0.3); */
+    transition: 1s all ease;
+    z-index: 9999999;
+
+    @media (max-width: 1023px) {
+      &:not(.active) {
+        width: 0;
+      }
+
+      &.active {
+        position: fixed;
+        top: calc(var(--header-height) + var(--toolbar-height));
+        left: 0;
+        bottom: 0;
+        width: var(--sidebar-width);
+      }
+    }
+
+    & .sidebar-item {
+      font-family: 'roboto', sans-serif;
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+  }
+}
+
+.content {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+
+  /* grid-area: content; */
+  width: 100%;
+  height: 100%;
+}
+
+.glass {
+  /* From https://css.glass */
+  /* background-color: rgba(138, 253, 255, 0.3); */
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(7.4px);
+  -webkit-backdrop-filter: blur(7.4px);
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgba(255, 255, 255, 0.5);
+  /* background: rgb(0,0,0); */
+  background: linear-gradient(5deg, rgba(0,0,50,0.1) 0%, rgba(255,255,255,0.0) 53%);
+
+  &.green-ocean {
+    background-color: var(--glass-color-green-ocean);
+    /* border-color: var(--glass-border-green-ocean); */
+  }
+
+  &.gray-rock, &:not(.green-ocean, .red-coral, .green-forest) {
+    background-color: var(--glass-color-gray-rock);
+    /* border-color: var(--glass-border-gray-rock); */
+  }
+
+  &.red-coral {
+    background-color: var(--glass-color-red-coral);
+    /* border-color: var(--glass-border-red-coral); */
+  }
+
+  &.green-forest {
+    background-color: var(--glass-color-green-forest);
+    /* border-color: var(--glass-border-green-forest); */
+  }
+}
