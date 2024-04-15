@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Canvas } from '@react-three/fiber';
 import Scene from '@/components/Scene';
 
@@ -7,6 +7,11 @@ const App = () => {
   const handleOpenSidebar = () => {
     setOpenSidebar(!openSidebar);
   };
+
+  useEffect(() => {
+    alert('3D Viewer is in alpha version, please be patient!');
+  }, []);
+
   return (
     <section className="layout">
       <main className="content">
